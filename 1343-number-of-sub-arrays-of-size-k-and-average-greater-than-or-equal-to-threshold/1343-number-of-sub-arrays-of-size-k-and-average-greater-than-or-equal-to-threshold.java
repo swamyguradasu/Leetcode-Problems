@@ -1,20 +1,12 @@
 class Solution {
     public int numOfSubarrays(int[] arr, int k, int threshold) {
-        int count = 0;
-        int currentSum = 0;
-        int targetSum = k * threshold;
-        for (int i = 0; i < k; i++) {
-            currentSum += arr[i];
+        int c=0,s=0;
+        for(int i=0;i<k;i++) s+=arr[i];
+        if(s/k>=threshold) c++;
+        for(int i=1;i<=arr.length-k;i++){
+            s=s-arr[i-1]+arr[i+k-1];
+            if(s/k>=threshold)c++;
         }
-        if (currentSum >= targetSum) {
-            count++;
-        }
-        for (int i = k; i < arr.length; i++) {
-            currentSum = currentSum - arr[i - k] + arr[i];
-            if (currentSum >= targetSum) {
-                count++;
-            }
-        }
-        return count;
+        return c;
     }
 }
